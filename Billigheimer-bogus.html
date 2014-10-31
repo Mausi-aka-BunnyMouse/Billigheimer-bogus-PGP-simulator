@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Billigheimer PGP Simulator</title>
+    <script type="text/javascript">
+		
+		//function zufallstext (vorrat, anzahl)
+		function zufallstext ()
+		{
+			var kopf = "-----BEGIN PGP MESSAGE-----<br>Charset: ISO-8859-15<br>Version: GnuPG v2.0.21-beta20 (MingW32)<br><br>" ;
+			
+			//generiere zufallstext: zuerst irgendeine anzahl zeilen mit je 64 zufallszeichen und abschließend eine unvollständige zeile
+			//wie viele zeilen hat der zufallstext? hier zufällig aber max 60 zeilen.
+			var zeilenanzahl = Math.floor(Math.random()*61);
+			
+			//zeichenvorrat für den zufallstext
+			var zeichenvorrat = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0","+","/"];
+			
+			var text = "";
+			for (i = 0; i < zeilenanzahl; i++)
+			{
+				var zeile = "";
+				for (j = 0; j < 64; j++) 
+				{
+					//zufälliges zeichen ziehen - index des zeichens würfeln und dann aus array holen
+					index = Math.floor(Math.random()*(zeichenvorrat.length)) 
+					zeichen = zeichenvorrat[index]; 
+					zeile += zeichen
+				}
+				zeilebr = zeile + "<br>";
+				text += zeilebr;
+			}
+			var letzteZeile = "";
+			var zeilenlaenge = Math.floor(Math.random()*64);
+			for (k = 0; k < zeilenlaenge; k++) 
+			{
+				index = Math.floor(Math.random()*(zeichenvorrat.length)) 
+				zeichen = zeichenvorrat[index]; 
+				letzteZeile += zeichen
+			}
+			text += letzteZeile; 
+			
+			//das padding am textende willkürlich ermitteln - möglichkeiten sind =, == oder leer
+			var paddingArr = ["=","==",""];
+			var paddingIndex = Math.floor(Math.random()*(paddingArr.length)) 
+			var padding = paddingArr[paddingIndex] + "<br>";	
+			
+			var checksum ="=";
+			for (l = 0; l < 4; l++) 
+				{
+					index = Math.floor(Math.random()*(zeichenvorrat.length)) 
+					zeichen = zeichenvorrat[index]; 
+					checksum += zeichen
+				}
+			
+			
+			var fuss = "<br>-----END PGP MESSAGE-----";
+			
+			var gesamtHTML = "<div style='word-wrap: break-word; font-family: courier; width: ;'>" + kopf + text + padding + checksum + fuss + "</div>";
+			
+			document.getElementById('test').innerHTML = gesamtHTML;
+			
+			//no return ;-)
+		}
+		
+	</script>
+  </head>
+  <body>
+	<div style="background-color:black; color:white;">
+	<table>
+		<tr>
+			<td>
+				<p style="font-weight: bold; color: yellow; font-family: monospace;">
+					&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;_&nbsp;&nbsp;_&nbsp;&nbsp;_&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_<br>                        
+					&nbsp;&nbsp;/ __\(_)| || |(_)&nbsp;&nbsp;__ _ | |__&nbsp;&nbsp;&nbsp;&nbsp;___ (_) ___ ___&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;_ __<br> 
+					&nbsp;/__\//| || || || | / _` || '_ \&nbsp;&nbsp;/ _ \| || '_ ` _ \&nbsp;&nbsp;/ _ \| '__|<br>
+					/ \/ &nbsp;\| || || || || (_| || | | || &nbsp;__/| || | | | | ||&nbsp;&nbsp;__/| |<br>   
+					\_____/|_||_||_||_| \__, ||_| |_| \___||_||_| |_| |_| \___||_|<br>   
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___/<br>                                                                            
+					<span style="font-size:80%">Version 1.0 (deutsch)</span/>
+				</p>
+			</td>
+			<td>
+				<h3 style="font-style:italic;">PGP<br>Code<br>Simulator</h3>
+			</td>
+		</tr>	
+	</table>
+	</div>
+		<p><strong>Mach mit beim "Kryptospam" -- Erzeuge Datenmüll der sich nicht von echtem verschlüsseltem Text unterscheidet und schicke ihn durchs Netz!</strong></p>
+		<p>(1) Knopf drücken um Zufalls-Kryptotext zu generieren, (2) diesen per Copy&Paste in eine leere Email kopieren, und (3) abschicken an geeigneten Empfänger, z.B. eingeweihten Kollegen oder auch eigene Doppel- und Dreifachadressen.</p>
+
+		<input type='button' onclick='zufallstext()' value='Zufallscode'/>
+		<p id='test'>Jetzt hier <b id='boldStuff3'>Datenmüll machen</b><br><br>*****<br>****<br>***<br>**<br>*</p>
+  </body>
+</html>
